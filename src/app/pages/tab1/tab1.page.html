@@ -1,0 +1,19 @@
+<ion-header [translucent]="true" class="ion-no-border">
+	<ion-toolbar>
+		<ion-title> Pendings </ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-list>
+		<ion-item detail *ngFor="let list of lists">
+			<ion-label>{{list.title}}</ion-label>
+		</ion-item>
+	</ion-list>
+	<!-- fab placed to the top end -->
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="addList()" color="tertiary">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+</ion-content>
