@@ -1,16 +1,31 @@
 import {Injectable} from '@angular/core';
-import {TaskList} from '../models/todolist.model';
+import {ToDoList} from '../models/todolist.model';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class TasksService {
-	lists: TaskList[] = [];
+	lists: ToDoList[] = [];
 
 	constructor() {
-		const list1 = new TaskList('Task1');
-		const list2 = new TaskList('Task2');
+		this.loadStorage();
+	}
 
-		this.lists.push(list1, list2);
+	createList(title: string) {
+		const newList = new ToDoList(title);
+		this.lists.push(newList);
+		this.saveStorage();
+	}
+
+	saveStorage() {
+		localStorage.setItem('data', JSON.stringify(this.lists));
+	}
+
+	loadStorage() {
+		const dataFromStorage = localStorage.getItem('data');
+
+		if (dataFromStorage) {
+			this.lists = JSON.parse(localStorage.getItem('data'));
+		}
 	}
 }

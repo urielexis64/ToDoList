@@ -1,4 +1,4 @@
-export class TaskListItem {
+export class ToDoItem {
 	description: string;
 	done: boolean;
 
