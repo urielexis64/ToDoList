@@ -18,6 +18,11 @@ export class TasksService {
 		return newList.id;
 	}
 
+	removeList(list) {
+		this.lists = this.lists.filter((dataList) => dataList.id !== list.id);
+		this.saveStorage();
+	}
+
 	getList(id: string | number) {
 		id = Number(id);
 
