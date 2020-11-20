@@ -13,7 +13,7 @@ export class Tab1Page {
 	lists: ToDoList[];
 
 	constructor(
-		public tasksService: TasksService,
+		private tasksService: TasksService,
 		private router: Router,
 		private alertController: AlertController
 	) {
@@ -35,15 +35,20 @@ export class Tab1Page {
 				{
 					text: 'Cancel',
 					role: 'cancel',
-					handler: () => {},
 				},
 				{
 					text: 'Create',
 					handler: (data) => {
-						if (data.title.trim().length === 0) {
+						const newListTitle = data.title.trim();
+						if (newListTitle.length === 0) {
 							return;
+						}
+						const repeatedName = this.lists.filter((list) => list.title === newListTitle).length;
+						if (repeatedName !== 1) {
+							const listID = this.tasksService.createList(newListTitle);
+							this.router.navigateByUrl(`/tabs/tab1/add/${listID}`);
 						} else {
-							this.tasksService.createList(data.title);
+							this.presentAlert('Hey!', 'You entered a name that is already in the list...');
 						}
 					},
 				},
@@ -52,5 +57,16 @@ export class Tab1Page {
 
 		alert.present();
 		//this.router.navigateByUrl('tabs/tab1/add');
+	}
+
+	private async presentAlert(header: string, message: string) {
+		const alert = await this.alertController.create({
+			cssClass: 'my-custom-class',
+			header,
+			message,
+			buttons: ['OK'],
+		});
+
+		await alert.present();
 	}
 }
