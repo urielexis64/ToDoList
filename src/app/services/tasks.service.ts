@@ -15,6 +15,13 @@ export class TasksService {
 		const newList = new ToDoList(title);
 		this.lists.push(newList);
 		this.saveStorage();
+		return newList.id;
+	}
+
+	getList(id: string | number) {
+		id = Number(id);
+
+		return this.lists.find((datalist) => datalist.id === id);
 	}
 
 	saveStorage() {
