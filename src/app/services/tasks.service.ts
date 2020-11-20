@@ -18,6 +18,16 @@ export class TasksService {
 		return newList.id;
 	}
 
+	editList(list: ToDoList, newTitle: string) {
+		this.lists.forEach((datalist) => {
+			if (datalist.id === list.id) {
+				datalist.title = newTitle;
+				this.saveStorage();
+				return;
+			}
+		});
+	}
+
 	removeList(list) {
 		this.lists = this.lists.filter((dataList) => dataList.id !== list.id);
 		this.saveStorage();
