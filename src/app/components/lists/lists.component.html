@@ -1,9 +1,17 @@
 <ion-list>
-	<ion-item-sliding *ngFor="let list of lists" class="animated fadeInDown">
+	<ion-item-sliding
+		*ngFor="let list of tasksService.lists | doneFilter: done"
+		class="animated fadeInDown"
+	>
 		<ion-item class="item" (click)="openList(list.id)" detail>
 			<ion-label>{{ list.title }}</ion-label>
 			<ion-badge slot="end">{{ list.items.length }}</ion-badge>
 		</ion-item>
+		<ion-item-options side="start">
+			<ion-item-option color="tertiary" (click)="editList(list)"
+				><ion-icon slot="icon-only" name="pencil-outline"></ion-icon
+			></ion-item-option>
+		</ion-item-options>
 		<ion-item-options side="end">
 			<ion-item-option color="danger" (click)="removeList(list)"
 				><ion-icon slot="icon-only" name="trash-outline"></ion-icon
